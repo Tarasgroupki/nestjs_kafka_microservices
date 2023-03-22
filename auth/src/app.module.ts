@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-// import { SequelizeModule } from '@nestjs/sequelize';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from "./http/controllers/auth.controller";
 import { UserService } from "./domain/user.service";
@@ -22,18 +20,6 @@ import { LocalStrategy } from "./domain/local.strategy";
           secret: jwtConstants.secret,
           signOptions: { expiresIn: '60s' },
       }),
-  //   SequelizeModule.forRoot({
-  //   dialect: 'postgres',
-  //   host: 'localhost',
-  //   port: 5432,
-  //   username: 'pguser',
-  //   password: 'pgpwd',
-  //   database: 'maindb',
-  //   synchronize: true,
-  //   models: [
-  //
-  //   ],
-  // }),
   ],
   controllers: [UserController, AuthController],
   providers: [AppService, UserRepository, UserService, AuthService, LocalStrategy],

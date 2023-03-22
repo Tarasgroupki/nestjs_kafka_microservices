@@ -21,7 +21,6 @@ export class UserController {
   async getUser(data: { value: { id: number } }) {
     const user = await this.userService.findOne(+data.value.id);
 
-    console.log(new UserMapper().mapToUserDto(user))
     return new UserMapper().mapToUserDto(user);
   }
 }

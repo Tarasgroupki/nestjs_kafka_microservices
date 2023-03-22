@@ -8,7 +8,7 @@ import { ProductController } from "./product/product.controller";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtAuthGuard } from "./auth/auth.guard";
 import {JwtModule} from "@nestjs/jwt";
-import {jwtConstants} from "../../auth/src/constants";
+import {jwtConstants} from "./constants";
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import {jwtConstants} from "../../auth/src/constants";
         options: {
           client: {
             clientId: 'product',
-            brokers: ['localhost:9092'],
+            brokers: ['localhost:9092', 'kafka:29092'],
           },
           consumer: {
             groupId: 'product-consumer',
@@ -32,7 +32,7 @@ import {jwtConstants} from "../../auth/src/constants";
         options: {
           client: {
             clientId: 'auth',
-            brokers: ['localhost:9092'],
+            brokers: ['localhost:9092', 'kafka:29092'],
           },
           consumer: {
             groupId: 'auth-consumer',

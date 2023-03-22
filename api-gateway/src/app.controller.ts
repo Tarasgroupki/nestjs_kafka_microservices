@@ -1,6 +1,5 @@
 import {Body, Controller, Get, Inject, OnModuleInit, Param, Post} from '@nestjs/common';
 import { AppService } from './app.service';
-import { CreateOrderRequest } from './create-order-request.dto';
 import { ClientKafka } from "@nestjs/microservices";
 
 @Controller()

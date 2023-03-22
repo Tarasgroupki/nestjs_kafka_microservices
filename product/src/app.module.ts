@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
 import {ProductController} from "./http/controllers/product.controller";
 import {ProductService} from "./domain/product.service";
 import {ProductRepository} from "./database/product.repository";
@@ -17,7 +15,7 @@ import {PrismaModule} from "../prisma/prisma.module";
         options: {
           client: {
             clientId: 'auth',
-            brokers: ['localhost:9092'],
+            brokers: ['localhost:9092', 'kafka:29092'],
           },
           consumer: {
             groupId: 'auth-consumer',

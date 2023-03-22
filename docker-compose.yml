@@ -1,6 +1,7 @@
 version: "3.3"
 
 services:
+
   kafdrop:
     image: obsidiandynamics/kafdrop
     restart: "no"
@@ -11,6 +12,8 @@ services:
       JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
     depends_on:
       - "kafka"
+    networks:
+      - microservices
 
   kafka:
     image: obsidiandynamics/kafka
@@ -27,6 +30,8 @@ services:
       KAFKA_RESTART_ATTEMPTS: "10"
       KAFKA_RESTART_DELAY: "5"
       ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL: "0"
+    networks:
+      - microservices
 
   postgres:
     container_name: postgres_container
@@ -100,10 +105,53 @@ services:
     networks:
       - postgres
 
+  auth-microservice:
+    build:
+      context: .
+      dockerfile: ./auth/.Dockerfile
+    volumes:
+      - ./auth-data:/app
+    links:
+      - kafka
+      - postgres
+    networks:
+      - microservices
+
+  product-microservice:
+    build:
+      context: .
+      dockerfile: ./product/.Dockerfile
+    volumes:
+      - ./product-data:/app
+    links:
+      - kafka
+      - postgres
+    networks:
+      - microservices
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./api-gateway/.Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-gateway-data:/app
+    networks:
+      - microservices
+
 networks:
   postgres:
+    driver: bridge
+  microservices:
     driver: bridge
 
 volumes:
   postgres-data:
+    external: true
+  api-gateway-data:
+    external: true
+  auth-data:
+    external: true
+  product-data:
     external: true

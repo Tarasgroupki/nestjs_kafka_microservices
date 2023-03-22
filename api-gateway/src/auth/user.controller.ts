@@ -29,11 +29,8 @@ export class UserController implements OnModuleInit {
     @Auth()
     @Get('/:id')
     getUser(@Param('id') id: number): Observable<IUser> {
-        console.log(id, this.authClient
-            .send('get.user.one', { id }))
         return this.authClient
             .send('get.user.one', { id }).pipe(tap((u) => {
-                console.log(typeof u)
                 return u;
             }));
     }

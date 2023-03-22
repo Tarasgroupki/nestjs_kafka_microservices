@@ -6,8 +6,6 @@ import {LoginDto} from "../dto/auth.dto";
 import {UserDto} from "../dto/user.dto";
 import {UserMapper} from "../mappers/user.mapper";
 
-// import { AppService } from './app.service';
-
 @Controller()
 export class AuthController {
   constructor(

@@ -23,10 +23,6 @@ export class ProductController implements OnModuleInit {
     @Auth()
     @Get('/')
     getUsers(): Observable<IProduct[]> {
-        this.productClient
-            .send('get.product.list', '').pipe(map((p) => {
-                console.log(p)
-            }));
         return this.productClient
             .send('get.product.list', '');
     }
@@ -36,7 +32,6 @@ export class ProductController implements OnModuleInit {
     getUser(@Param('id') id: number): Observable<IProduct> {
         return this.productClient
             .send('get.product.one', { id }).pipe(tap((u) => {
-                console.log(typeof u)
                 return u;
             }));
     }
@@ -46,7 +41,6 @@ export class ProductController implements OnModuleInit {
     create(@Body() productDto: IProduct): Observable<IProduct> {
         return this.productClient
             .send('create.product', productDto).pipe(tap((u) => {
-                console.log(typeof u)
                 return u;
             }));
     }

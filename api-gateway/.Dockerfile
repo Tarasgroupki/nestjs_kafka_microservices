@@ -1,19 +1,19 @@
-FROM node:12-alpine
+FROM node:16.15-alpine
 
-ARG APP_DIR=app
+ARG APP_DIR=app-gateway
 RUN mkdir -p ${APP_DIR}
 WORKDIR ${APP_DIR}
 
-COPY package*.json ./
-RUN npm cache clean -f
-RUN apk add --no-cache --virtual .build-deps alpine-sdk python \
- && npm install \
- && npm audit fix \
- && npm rebuild bcrypt --build-from-source \
- && apk del .build-deps
+COPY /api-gateway .
 
-COPY . .
+RUN rm -rf node_modules package-lock.json
 
-EXPOSE 2700
+RUN ls -l
 
-CMD ["npm", "run", "start:dev"]
+RUN npm install
+
+RUN ls -l
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
