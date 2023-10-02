@@ -1,19 +1,16 @@
+FROM ubuntu:18.04
 FROM node:16.15-alpine
 
-ARG APP_DIR=app-gateway
+ARG APP_DIR=app-product
 RUN mkdir -p ${APP_DIR}
 WORKDIR ${APP_DIR}
 
-COPY /api-gateway .
+COPY . ./
 
 RUN rm -rf node_modules package-lock.json
 
 RUN ls -l
 
 RUN npm install
-
-RUN ls -l
-
-EXPOSE 3000
 
 CMD ["npm", "run", "start"]

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: api-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  labels:
+    name: api-ingress
+spec:
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: gateway-service
+              servicePort: 3000

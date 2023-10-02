@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafkadrop
+spec:
+  selector:
+    matchLabels:
+      app: kafkadrop
+  template:
+    metadata:
+      labels:
+        app: kafkadrop
+    spec:
+      containers:
+        - name: kafkadrop
+          image: obsidiandynamics/kafdrop
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafkadrop-service
+spec:
+  selector:
+    app: kafkadrop
+  ports:
+    - port: 9000
+      targetPort: 9000

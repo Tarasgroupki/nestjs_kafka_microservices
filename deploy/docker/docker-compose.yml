@@ -107,8 +107,8 @@ services:
 
   auth-microservice:
     build:
-      context: .
-      dockerfile: ./auth/.Dockerfile
+      context: ../../auth
+      dockerfile: Dockerfile
     volumes:
       - ./auth-data:/app
     links:
@@ -116,11 +116,12 @@ services:
       - postgres
     networks:
       - microservices
+      - postgres
 
   product-microservice:
     build:
-      context: .
-      dockerfile: ./product/.Dockerfile
+      context: ../../product
+      dockerfile: Dockerfile
     volumes:
       - ./product-data:/app
     links:
@@ -128,11 +129,12 @@ services:
       - postgres
     networks:
       - microservices
+      - postgres
 
   api-gateway:
     build:
-      context: .
-      dockerfile: ./api-gateway/.Dockerfile
+      context: ../../api-gateway
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:

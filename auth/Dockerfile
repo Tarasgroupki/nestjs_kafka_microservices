@@ -1,10 +1,11 @@
+FROM ubuntu:18.04
 FROM node:16.15-alpine
 
 ARG APP_DIR=app-auth
 RUN mkdir -p ${APP_DIR}
 WORKDIR ${APP_DIR}
 
-COPY /auth .
+COPY . ./
 
 RUN rm -rf node_modules package-lock.json
 

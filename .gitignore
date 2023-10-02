@@ -3,6 +3,7 @@
 /node_modules
 /pgadmin
 /pgdata
+/deploy/docker/pgadmin
 
 # Logs
 logs
